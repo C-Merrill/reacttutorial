@@ -1,13 +1,12 @@
-import {useState} from 'react';
-
-const Square = () => {
-  const [value, setValue] = useState<string | undefined>(undefined);
-
-  const handleClick = () => {
-    setValue('X');
-  };
+const Square = ({
+  value,
+  onSquareClick,
+}: {
+  value: string;
+  onSquareClick: () => void;
+}) => {
   return (
-    <button className="square" onClick={handleClick}>
+    <button className="square" onClick={onSquareClick}>
       {value}
     </button>
   );
