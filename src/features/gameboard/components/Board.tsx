@@ -1,15 +1,26 @@
 import {useState} from 'react';
 import Square from './Square';
 
+enum Turn {
+  O = 0,
+  X = 1,
+}
+
 const Board = () => {
+  const [turn, setTurn] = useState<Turn>(Turn.X);
   const [squares, setSquares] = useState(
     Array<string | undefined>(9).fill(undefined),
   );
 
   const onSquareClick = (index: number) => {
     const nextSquares = squares.slice();
-    nextSquares[index] = 'X';
+    if (turn === Turn.X) {
+      nextSquares[index] = 'X';
+    } else {
+      nextSquares[index] = 'O';
+    }
     setSquares(nextSquares);
+    setTurn(turn ^ 1);
   };
 
   return (
