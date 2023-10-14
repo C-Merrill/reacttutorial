@@ -18,6 +18,9 @@ export default function register() {
           // eslint-disable-next-line no-param-reassign
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
+            if (!installingWorker) {
+              return;
+            }
             installingWorker.onstatechange = () => {
               if (installingWorker.state === 'installed') {
                 if (navigator.serviceWorker.controller) {
