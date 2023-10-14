@@ -13,6 +13,9 @@ const Board = () => {
   );
 
   const onSquareClick = (index: number) => {
+    if (squares[index]) {
+      return;
+    }
     const nextSquares = squares.slice();
     if (turn === Turn.X) {
       nextSquares[index] = 'X';
