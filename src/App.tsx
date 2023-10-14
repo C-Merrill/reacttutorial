@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
         <button className="square">9</button>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
