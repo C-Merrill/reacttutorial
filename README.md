@@ -19,3 +19,7 @@ I've gotten Prettier and ESLint where I think I want them for right now. I've al
 #### 10/14 1:02pm
 
 As instructed, I've now moved state into the Board component. There are 2 things on my mind at this stage. (1) I'm still wondering how we can clean up the 9 lines in Board that only differ by index. And (2) I'm wondering what I could do to move business logic and internal state out of the view layer. For now I'll just stay tuned and see where it takes me.
+
+#### 10/14 3:00pm
+
+I've added turn taking and win state checking. I took some liberties to solve this a little differently than the tutorial. Rather than a boolean for whose turn it is, I've added a binary turn state, which feels better since there is an arbitrary choice to keep track of otherwise (whose turn does `true` mean?). I also refactored the internal game state to depend on the turn values rather than the display values. For win state, I was able to slightly optimize things on the assumption that we only need to check win state when the game state changes. Now instead of checking win state globally on all the possible lines (8), we're only checking lines affected by the most recent move (2-4, depending on move). More significantly, this calculation only happens when a move is made, not every time the Board is rendered (if I'm understanding the React life cycle correctly).
