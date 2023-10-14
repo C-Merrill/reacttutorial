@@ -2,7 +2,9 @@ import {useState} from 'react';
 import Square from './Square';
 
 const Board = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState(
+    Array<string | undefined>(9).fill(undefined),
+  );
 
   const onSquareClick = (index: number) => {
     const nextSquares = squares.slice();
