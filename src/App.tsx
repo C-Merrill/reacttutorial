@@ -1,4 +1,4 @@
-import Game from './features/gameboard/components/Game';
+import Game from './Game';
 
 const App = () => {
   return <Game />;

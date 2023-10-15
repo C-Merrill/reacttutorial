@@ -1,48 +1,39 @@
-import {useState} from 'react';
 import Square from './Square';
-import {Player, getPlayerDisplay} from '../model/player';
-import {default as ModelBoard} from '../model/board';
-import calculateWinner from '../model/calculateWinner';
+import Status from './Status';
+import useWinner from '../hooks/useWinner';
+import {Player} from '../../../common/types/player';
+import {default as BoardType} from '../types/board';
 
 const Board = ({
+  board,
   turn,
-  squares,
   onPlay,
 }: {
+  board: BoardType;
   turn: Player;
-  squares: ModelBoard;
-  onPlay: (nextSquares: ModelBoard) => void;
+  onPlay: (square: number) => BoardType | undefined;
 }) => {
-  const [winner, setWinner] = useState<Player | undefined>(undefined);
+  const {winner, calculateWinner} = useWinner();
 
   const onSquareClick = (index: number) => {
-    if (squares[index] || winner !== undefined) {
+    if (winner !== undefined) {
       return;
     }
-    const nextSquares = [...squares] as ModelBoard;
-    nextSquares[index] = turn;
-    onPlay(nextSquares);
-    setWinner(calculateWinner(nextSquares, index));
-  };
-
-  const getStatus = () => {
-    if (winner !== undefined) {
-      return `Winner: ${getPlayerDisplay(winner)}`;
-    } else if (!squares.includes(undefined)) {
-      return "Cat's game. Reload";
-    } else {
-      return `Next player: ${getPlayerDisplay(turn)}`;
+    const nextBoard = onPlay(index);
+    if (!nextBoard) {
+      return;
     }
+    calculateWinner(nextBoard, index);
   };
 
   return (
-    <>
-      <div className="status">{getStatus()}</div>
+    <div className="game-board">
+      <Status turn={turn} board={board} winner={winner} />
       {[0, 1, 2].map((rowIndex) => {
         const rowStart = rowIndex * 3;
         return (
           <div key={rowIndex} className="board-row">
-            {squares.slice(rowStart, rowStart + 3).map((square, colIndex) => {
+            {board.slice(rowStart, rowStart + 3).map((square, colIndex) => {
               return (
                 <Square
                   key={rowIndex * 3 + colIndex}
@@ -54,7 +45,7 @@ const Board = ({
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

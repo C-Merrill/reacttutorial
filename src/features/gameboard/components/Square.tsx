@@ -1,4 +1,4 @@
-import {Player, getPlayerDisplay} from '../model/player';
+import {Player, getPlayerDisplay} from '../../../common/types/player';
 
 const Square = ({
   value,

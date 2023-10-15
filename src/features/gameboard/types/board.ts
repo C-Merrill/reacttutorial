@@ -1,4 +1,4 @@
-import {Player} from './player';
+import {Player} from '../../../common/types/player';
 
 /** Board is a 9-tuple of Square */
 type Board = [
