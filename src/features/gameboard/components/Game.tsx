@@ -4,14 +4,30 @@ import {default as ModelBoard, generateEmptyBoard} from '../model/board';
 import Board from './Board';
 
 const Game = () => {
-  const [turn, setTurn] = useState<Player>(Player.X);
+  //   const [turn, setTurn] = useState<Player>(Player.X);
   const [history, setHistory] = useState<ModelBoard[]>([generateEmptyBoard()]);
-  const currentSquares = history[history.length - 1];
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+  const turn: Player = currentMove % 2;
 
   function handlePlay(nextSquares: ModelBoard) {
-    setHistory([...history, nextSquares]);
-    setTurn(turn ^ 1);
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(currentMove + 1);
   }
+
+  function jumpTo(nextMove: number) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) => {
+    const description = move > 0 ? 'Go to move #' + move : 'Go to game start';
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
 
   return (
     <div className="game">
@@ -19,7 +35,7 @@ const Game = () => {
         <Board turn={turn} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{/*TODO*/}</ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );

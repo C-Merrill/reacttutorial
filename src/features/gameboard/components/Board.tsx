@@ -35,18 +35,14 @@ const Board = ({
     }
   };
 
-  const boardRows: (Player | undefined)[][] = [0, 1, 2].map((rowIndex) => {
-    const rowStart = rowIndex * 3;
-    return squares.slice(rowStart, rowStart + 3);
-  });
-
   return (
     <>
       <div className="status">{getStatus()}</div>
-      {boardRows.map((row, rowIndex) => {
+      {[0, 1, 2].map((rowIndex) => {
+        const rowStart = rowIndex * 3;
         return (
           <div key={rowIndex} className="board-row">
-            {row.map((square, colIndex) => {
+            {squares.slice(rowStart, rowStart + 3).map((square, colIndex) => {
               return (
                 <Square
                   key={rowIndex * 3 + colIndex}

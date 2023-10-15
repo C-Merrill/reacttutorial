@@ -1,6 +1,6 @@
 export enum Player {
-  O = 0,
-  X = 1,
+  X = 0,
+  O = 1,
 }
 
 export function getPlayerDisplay(t: Player) {
