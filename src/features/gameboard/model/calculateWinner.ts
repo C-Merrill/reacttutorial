@@ -1,4 +1,4 @@
-import {Turn} from './turn';
+import {Player} from './player';
 
 function getRowForIndex(index: number): [number, number, number] {
   const rowStart = Math.floor(index / 3) * 3;
@@ -19,9 +19,9 @@ function getDiagsForIndex(index: number): [number, number, number][] {
 }
 
 const calculateWinner = (
-  squares: (Turn | undefined)[],
+  squares: (Player | undefined)[],
   indexOfMove: number,
-): Turn | undefined => {
+): Player | undefined => {
   const linesToCheck = [
     ...getDiagsForIndex(indexOfMove),
     getColForIndex(indexOfMove),

@@ -1,15 +1,15 @@
-import {Turn, getTurnDisplay} from '../model/turn';
+import {Player, getPlayerDisplay} from '../model/player';
 
 const Square = ({
   value,
   onSquareClick,
 }: {
-  value: Turn | undefined;
+  value: Player | undefined;
   onSquareClick: () => void;
 }) => {
-  const displayValue = (value: Turn | undefined): string => {
+  const displayValue = (value: Player | undefined): string => {
     if (value !== undefined) {
-      return getTurnDisplay(value);
+      return getPlayerDisplay(value);
     }
     return '';
   };

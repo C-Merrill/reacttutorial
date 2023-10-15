@@ -1,33 +1,37 @@
 import {useState} from 'react';
 import Square from './Square';
-import {Turn, getTurnDisplay} from '../model/turn';
+import {Player, getPlayerDisplay} from '../model/player';
+import {default as ModelBoard} from '../model/board';
 import calculateWinner from '../model/calculateWinner';
 
-const Board = () => {
-  const [turn, setTurn] = useState<Turn>(Turn.X);
-  const [squares, setSquares] = useState(
-    Array<Turn | undefined>(9).fill(undefined),
-  );
-  const [winner, setWinner] = useState<Turn | undefined>(undefined);
+const Board = ({
+  turn,
+  squares,
+  onPlay,
+}: {
+  turn: Player;
+  squares: ModelBoard;
+  onPlay: (nextSquares: ModelBoard) => void;
+}) => {
+  const [winner, setWinner] = useState<Player | undefined>(undefined);
 
   const onSquareClick = (index: number) => {
     if (squares[index] || winner !== undefined) {
       return;
     }
-    const nextSquares = squares.slice();
+    const nextSquares = [...squares] as ModelBoard;
     nextSquares[index] = turn;
-    setSquares(nextSquares);
+    onPlay(nextSquares);
     setWinner(calculateWinner(nextSquares, index));
-    setTurn(turn ^ 1);
   };
 
   const getStatus = () => {
     if (winner !== undefined) {
-      return `Winner: ${getTurnDisplay(winner)}`;
+      return `Winner: ${getPlayerDisplay(winner)}`;
     } else if (!squares.includes(undefined)) {
       return "Cat's game. Reload";
     } else {
-      return `Next player: ${getTurnDisplay(turn)}`;
+      return `Next player: ${getPlayerDisplay(turn)}`;
     }
   };
 
