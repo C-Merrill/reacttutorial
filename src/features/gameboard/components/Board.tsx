@@ -63,6 +63,8 @@ const Board = () => {
   const getStatus = () => {
     if (winner !== undefined) {
       return `Winner: ${getTurnDisplay(winner)}`;
+    } else if (!squares.includes(undefined)) {
+      return "Cat's game. Reload";
     } else {
       return `Next player: ${getTurnDisplay(turn)}`;
     }
