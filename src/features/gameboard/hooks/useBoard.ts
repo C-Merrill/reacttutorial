@@ -23,12 +23,13 @@ function useBoard() {
     setBoard(nextBoard);
   };
 
-  const replayMoves = (moves: number[], currentMove: number) => {
+  const replayMoves = (moves: number[], currentMove: number): Board => {
     const nextBoard = [...board] as Board;
     moves.forEach((move, index) => {
       nextBoard[move] = (index + currentMove) % 2;
     });
     setBoard(nextBoard);
+    return nextBoard;
   };
 
   return {board, makeMove, undoMoves, replayMoves};

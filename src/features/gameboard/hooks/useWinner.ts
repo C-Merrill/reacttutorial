@@ -44,7 +44,11 @@ function useWinner() {
     }
   };
 
-  return {winner, calculateWinner};
+  const resetWinner = () => {
+    setWinner(undefined);
+  };
+
+  return {winner, calculateWinner, resetWinner};
 }
 
 export default useWinner;
