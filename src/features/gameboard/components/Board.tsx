@@ -17,7 +17,7 @@ const Board = ({
   return (
     <div className="game-board">
       <Status turn={turn} board={board} winner={winner} />
-      {[0, 1, 2].map((rowIndex) => {
+      {[...Array(3).keys()].map((rowIndex) => {
         const rowStart = rowIndex * 3;
         return (
           <div key={rowIndex} className="board-row">
